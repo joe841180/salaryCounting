@@ -46,13 +46,13 @@ class handlingFile:
             data = json.dumps(data)
             f.write(data)
 
-def inputDate(message):
-    data = handlingFile.read() #讀取
+# def inputDate(message):
+#     data = handlingFile.read() #讀取
     
-    if message.find(""):
-        data[""] = ""
+#     if message.find(""):
+#         data[""] = ""
     
-    handlingFile.write(data)#寫入
+#     handlingFile.write(data)#寫入
 
 
 
@@ -79,7 +79,6 @@ def handle_message(event):
     message = TextSendMessage(text=event.message.text)
 
     # 儲存日期、計算時數
-    res = inputDate(message)
     res = message
     # res = "test"
 
