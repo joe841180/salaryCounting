@@ -76,7 +76,8 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TextSendMessage(text=event.message.text)
+    # message = TextSendMessage(text=event.message.text)
+    message = event.message.text
 
     # 儲存日期、計算時數
     if message == "123":
