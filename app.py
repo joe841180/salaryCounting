@@ -87,7 +87,7 @@ def handle_message(event):
     # res = "test"
 
     # 回傳
-    line_bot_api.reply_message(event.reply_token, res)
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=res))
 
 import os
 if __name__ == "__main__":
