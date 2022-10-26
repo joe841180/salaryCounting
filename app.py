@@ -80,6 +80,7 @@ def handle_message(event):
 
     # 儲存日期、計算時數
     res = inputDate(message)
+    res = message
     # res = "test"
 
     # 回傳
