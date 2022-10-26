@@ -7,6 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import *
+import json
 
 app = Flask(__name__)
 
@@ -15,6 +16,47 @@ CHANNEL_SECRET = "adcdb4d9df7e94f2979c6053be670575"
 
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
+
+# 讀、存檔
+class handlingFile:
+    salaryData = "salaryData.json"
+    sample = {
+        "workDays":[
+                {
+                "date":"1004",
+                "workTime":"0800-0930",
+                "task":"1.測試\n2.測試",
+                "m-油錢":"100"
+            }
+        ],
+        "config":{
+            "name":"", 
+            "wage":"180", #時薪
+            "healthCare":False, #健保
+            "laborInsurance":False, #勞保
+        }
+    }
+    def read(self):
+        with open(self.salaryData,"r") as f:
+            data = json.loads(f.read())
+            return data
+
+    def write(self, data):
+        with open(self.salaryData,"w") as f:
+            data = json.dumps(data)
+            f.write(data)
+
+def inputDate(message):
+    data = handlingFile.read() #讀取
+    
+    if message.find(""):
+        data[""] = ""
+    
+    handlingFile.write(data)#寫入
+
+
+
+
 
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
@@ -35,7 +77,12 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token, message)
+
+    # 儲存日期、計算時數
+    res = inputDate(message)
+
+    # 回傳
+    line_bot_api.reply_message(event.reply_token, res)
 
 import os
 if __name__ == "__main__":
