@@ -79,8 +79,8 @@ def handle_message(event):
     message = TextSendMessage(text=event.message.text)
 
     # 儲存日期、計算時數
-    res = message
-    # res = "test"
+    # res = message
+    res = "test"
 
     # 回傳
     line_bot_api.reply_message(event.reply_token, res)
